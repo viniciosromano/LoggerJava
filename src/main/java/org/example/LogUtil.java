@@ -34,20 +34,13 @@ public class LogUtil {
 
     static {
         try {
-            String directoryPathInfo = "log/info";
-            String directoryPathWarning = "log/warning";
-            String directoryPathSevere = "log/severe";
-            ensureDirectoryExists(directoryPathInfo);
-            ensureDirectoryExists(directoryPathWarning);
-            ensureDirectoryExists(directoryPathSevere);
-
             // Define o nível de log para todos os níveis
             logger.setLevel(Level.ALL);
 
             // Adiciona manipuladores de arquivo para cada nível de log
-            logger.addHandler(new LevelFileHandler(Level.INFO, directoryPathInfo+"/logInfo.log"));
-            logger.addHandler(new LevelFileHandler(Level.WARNING, directoryPathWarning+"/logWarning.log"));
-            logger.addHandler(new LevelFileHandler(Level.SEVERE, directoryPathSevere+"/logSevere.log"));
+            logger.addHandler(new LevelFileHandler(Level.INFO, ensureDirectoryExists("log/info") + "/logInfo.log"));
+            logger.addHandler(new LevelFileHandler(Level.WARNING, ensureDirectoryExists("log/warning") + "/logWarning.log"));
+            logger.addHandler(new LevelFileHandler(Level.SEVERE, ensureDirectoryExists("log/severe") + "/logSevere.log"));
         } catch (SecurityException | IOException e) {
             e.printStackTrace();
         }
