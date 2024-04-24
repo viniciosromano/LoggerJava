@@ -1,0 +1,8 @@
+Apr 24, 2024 8:03:29 PM org.example.Main main
+INFO: Test1
+Apr 24, 2024 8:03:29 PM org.example.Main main
+WARNING: Test2
+Apr 24, 2024 8:03:29 PM org.example.Main main
+SEVERE: Test3
+Apr 24, 2024 8:03:29 PM org.example.Test test
+INFO: testNewclass
