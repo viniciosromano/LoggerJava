@@ -4,13 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.logging.*;
+import br.com.imagesoft.dateTimeNow.DateTimeGeneretor;
 
 public class LogUtil {
     // Cria um formatador simples para formatar a saída para o arquivo de log
-    private static SimpleFormatter formatter = new SimpleFormatter();
+    private static final SimpleFormatter formatter = new SimpleFormatter();
+    private static final String getdate = new DateTimeGeneretor().getDate();
 
     // Cria um logger global
-    private static Logger logger = Logger.getLogger("GlobalLogger");
+    private static final Logger logger = Logger.getLogger("GlobalLogger");
 
     // Classe interna para lidar com diferentes níveis de log
     private static class LevelFileHandler extends FileHandler {
@@ -37,11 +39,14 @@ public class LogUtil {
         try {
             // Define o nível de log para todos os níveis
             logger.setLevel(Level.ALL);
+            logger.setUseParentHandlers(false);
             String path = Paths.get("").toAbsolutePath().toString();
+            String date = getdate;
+
             // Adiciona manipuladores de arquivo para cada nível de log
-            addHandlerForLevel(Level.INFO, path+"/log/info", "logInfo.log");
-            addHandlerForLevel(Level.WARNING, path+"/log/warning", "logWarning.log");
-            addHandlerForLevel(Level.SEVERE, path+"/log/severe", "logSevere.log");
+            addHandlerForLevel(Level.INFO, path+"/log/info", "logInfo-"+date+".log");
+            addHandlerForLevel(Level.WARNING, path+"/log/warning", "logWarning-"+date+".log");
+            addHandlerForLevel(Level.SEVERE, path+"/log/severe", "logSevere-"+date+".log");
         } catch (SecurityException | IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +54,6 @@ public class LogUtil {
 
     // Método para adicionar um manipulador de arquivo para um nível de log específico
     private static void addHandlerForLevel(Level level, String directoryPath, String fileName) throws IOException {
-        System.out.println(directoryPath);
         ensureDirectoryExists(directoryPath);
         logger.addHandler(new LevelFileHandler(level, directoryPath + "/" + fileName));
     }

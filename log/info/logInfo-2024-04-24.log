@@ -1,0 +1,12 @@
+Apr 24, 2024 10:13:46 PM org.example.Main main
+INFO: Test1
+Apr 24, 2024 10:13:46 PM org.example.Test <init>
+INFO: testNewclass
+Apr 24, 2024 10:15:23 PM org.example.Main main
+INFO: Test1
+Apr 24, 2024 10:15:23 PM org.example.Test <init>
+INFO: testNewclass
+Apr 24, 2024 10:15:30 PM org.example.Main main
+INFO: Test1
+Apr 24, 2024 10:15:30 PM org.example.Test <init>
+INFO: testNewclass
