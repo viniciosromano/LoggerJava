@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.logging.*;
 
 public class LogUtil {
@@ -36,23 +37,29 @@ public class LogUtil {
         try {
             // Define o nível de log para todos os níveis
             logger.setLevel(Level.ALL);
-
+            String path = Paths.get("").toAbsolutePath().toString();
             // Adiciona manipuladores de arquivo para cada nível de log
-            logger.addHandler(new LevelFileHandler(Level.INFO, ensureDirectoryExists("log/info") + "/logInfo.log"));
-            logger.addHandler(new LevelFileHandler(Level.WARNING, ensureDirectoryExists("log/warning") + "/logWarning.log"));
-            logger.addHandler(new LevelFileHandler(Level.SEVERE, ensureDirectoryExists("log/severe") + "/logSevere.log"));
+            addHandlerForLevel(Level.INFO, path+"/log/info", "logInfo.log");
+            addHandlerForLevel(Level.WARNING, path+"/log/warning", "logWarning.log");
+            addHandlerForLevel(Level.SEVERE, path+"/log/severe", "logSevere.log");
         } catch (SecurityException | IOException e) {
             e.printStackTrace();
         }
     }
 
+    // Método para adicionar um manipulador de arquivo para um nível de log específico
+    private static void addHandlerForLevel(Level level, String directoryPath, String fileName) throws IOException {
+        System.out.println(directoryPath);
+        ensureDirectoryExists(directoryPath);
+        logger.addHandler(new LevelFileHandler(level, directoryPath + "/" + fileName));
+    }
+
     // Método para garantir que o diretório exista
-    private static String ensureDirectoryExists(String directoryPath) {
+    private static void ensureDirectoryExists(String directoryPath) {
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        return directoryPath;
     }
 
     // Método para obter o logger

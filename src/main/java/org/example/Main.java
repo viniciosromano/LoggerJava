@@ -1,5 +1,6 @@
 package org.example;
 
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 public class Main {
@@ -9,5 +10,7 @@ public class Main {
         logger.warning("Test2");
         logger.severe("Test3");
         new Test();
+
+
     }
 }
